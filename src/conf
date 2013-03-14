@@ -19,22 +19,23 @@ from __future__ import division
 from __future__ import print_function
 
 from argparse import ArgumentParser
-from ConfigParser import SafeConfigParser
-import os
+import json
 import sys
 
 
-def try_get_value(config_file_path, section, name):
-    cfg_parser = SafeConfigParser()
-    cfg_parser.read(config_file_path)
-    if cfg_parser.has_option(section, name):
-        return cfg_parser.get(section, name)
+def try_get_value(conf_path, section, name):
+    with open(conf_path) as conf_file:
+        conf = json.load(conf_file)
+    if section in conf:
+        section = conf[section]
+        if name in section:
+            return section[name]
     return None
 
 
 def build_argument_parser():
     parser = ArgumentParser()
-    parser.add_argument('config_file')
+    parser.add_argument('conf_file')
     parser.add_argument('section')
     parser.add_argument('option')
     return parser
@@ -44,7 +45,7 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv
     args = build_argument_parser().parse_args(argv[1:])
-    value = try_get_value(args.config_file, args.section, args.option)
+    value = try_get_value(args.conf_file, args.section, args.option)
     if value is None:
         return 1
     print(value)
