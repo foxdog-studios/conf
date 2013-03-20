@@ -1,5 +1,5 @@
 conf
-===
+====
 
 Prints configuration values from a JSON file to the stdout. Useful within shell
 scripts that require values from a configuration file.
@@ -17,7 +17,7 @@ installed globally)
 Usage
 -----
 
-Assume we've got the following JSON file, named ``conf.json`` in our working
+Assume we've got the following JSON file, named ``conf.json``, in our working
 directory.
 
 .. code-block:: json
@@ -28,7 +28,7 @@ directory.
         }
     }
 
-To print out the value and ``option`` run
+To print out the value of ``option`` run
 
 .. code-block:: console
 
@@ -40,8 +40,8 @@ Here's a more useful example:
 
     function sql
     {
-        echo "${@}" | mysql "$(conf $CONF db user)" \
-                "-p$(conf $CONF db password)"\
+        echo "${@}" | mysql -u "$(conf $CONF db user)" \
+                "-p$(conf $CONF db password)" \
                 "$(conf $CONF db name)"
     }
 
