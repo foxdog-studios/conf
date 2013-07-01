@@ -4,6 +4,9 @@ conf
 Prints configuration values from a JSON file to the stdout. Useful within shell
 scripts that require values from a configuration file.
 
+conf is licensed under the Apache License, Version 2.0. See $REPO/LICENSE.txt
+for more information.
+
 Installation
 ------------
 
